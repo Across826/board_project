@@ -1,6 +1,6 @@
 package com.boardproject.board;
 
-import com.boardproject.util.Role;
+import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
@@ -18,32 +18,44 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 100, nullable = false)
     private String title;
-
+    @Column(length = 1000, nullable = false)
     private String content;
 
-    @Column(name = "user_id")
+    @Column(name = "user_id",nullable = false)
     private Long userId;
 
-    @Column(name = "thumbnail")
-    private int isThumbnail; // 0:썸네일 없음, 1:썸네일 있음
+    private String thumbnail;
 
-    @Column(name = "file_id ")
-    private Long fileId ;
 
+    @Column(nullable = false )
     @ColumnDefault("'GENERAL'")
-    @Enumerated(EnumType.STRING)
-    private Role catagory; // 새싹:GENERAL, 우수:VIP
+    private String catagory; // 새싹:GENERAL, 우수:VIP
 
-    @Column(name="hide_flag")
+    @Column(name="hide_flag",nullable = false)
     @ColumnDefault("0")
     private int isHide; // 0:보임, 1:숨김/삭제
 
-    @Column(name="created_at")
+    @Column(name="created_at",nullable = false)
     @CreationTimestamp
     private Timestamp createdAt;
 
     @Column(name="updated_at")
     @UpdateTimestamp
     private Timestamp updatedAt;
+
+    @Builder
+    public Board(Long id, String title, String content, Long userId, String thumbnail,
+                 String catagory, int isHide, Timestamp createdAt, Timestamp updatedAt) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.userId = userId;
+        this.thumbnail = thumbnail;
+        this.catagory = catagory;
+        this.isHide = isHide;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 }
