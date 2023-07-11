@@ -12,9 +12,16 @@
 </head>
 
 <body>
-    <form method="post">
+    <h1>게시글 작성</h1>
+    <form th:action="@{/board/create}" method="post" enctype="multipart/form-data" >
+        <input type="hidden" name="userId" th:value="${userId}">
+        <input type="hidden" name="catagory" th:value="${catagory}">
+        제목 <input type="text" name="title"><br><br>
+        썸네일 사진 등록 <br>
+        <input type="file" name="file" accept="image/gif, image/jpeg, image/png"><br><br>
         <textarea id="summernote" type="text" th:class="form-control"
-                  name="boardContents" rows="10"></textarea>
+                  name="content" rows="10"></textarea><br>
+        <input type="submit" value="작성하기"/><br>
     </form>
 
 <!--summernote editor 설정-->
@@ -23,8 +30,6 @@
             $('#summernote').summernote({
                 // 에디터 높이
                 height: 300,
-                minHeight: null,        // 최소 높이
-                maxHeight: null,        // 최대 높이
                 lang: 'ko-KR',         // 에디터 한글 설정
                 focus : true,          // 에디터에 포커싱
                 toolbar: [
