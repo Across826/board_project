@@ -14,8 +14,8 @@
 <body>
     <h1>게시글 작성</h1>
     <form th:action="@{/board/create}" method="post" enctype="multipart/form-data" >
-        <input type="hidden" name="userId" th:value="${userId}">
-        <input type="hidden" name="catagory" th:value="${catagory}">
+        <input type="hidden" name="userId" th:value="${user.id}">
+        <input type="hidden" name="catagory" th:value="${user.roles}">
         제목 <input type="text" name="title"><br><br>
         썸네일 사진 등록 <br>
         <input type="file" name="file" accept="image/gif, image/jpeg, image/png"><br><br>
