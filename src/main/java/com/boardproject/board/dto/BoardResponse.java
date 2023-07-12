@@ -19,4 +19,23 @@ public class BoardResponse {
             this.title = board.getTitle();
         }
     }
+
+    @Getter
+    public static class DetailsDTO{
+        private Long id;
+        private Long userId;
+        private String title;
+
+        private String content;
+
+        private String thumbnail;
+
+        public DetailsDTO(Board board) {
+            this.id = board.getId();
+            this.userId = board.getUserId();
+            this.title = board.getTitle();
+            this.content = board.getContent();
+            this.thumbnail = board.getThumbnail();
+        }
+    }
 }

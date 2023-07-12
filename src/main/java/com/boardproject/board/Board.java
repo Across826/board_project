@@ -2,6 +2,7 @@ package com.boardproject.board;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
@@ -11,6 +12,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Getter
+@NoArgsConstructor
 @DynamicInsert
 @Entity
 public class Board {
