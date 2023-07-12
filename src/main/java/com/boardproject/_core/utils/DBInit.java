@@ -1,4 +1,4 @@
-package com.boardproject._core.util;
+package com.boardproject._core.utils;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
