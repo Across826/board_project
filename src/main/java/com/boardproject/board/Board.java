@@ -28,7 +28,6 @@ public class Board {
 
     private String thumbnail;
 
-
     @Column(nullable = false )
     @ColumnDefault("'GENERAL'")
     private String catagory; // 새싹:GENERAL, 우수:VIP
@@ -57,5 +56,9 @@ public class Board {
         this.isHide = isHide;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+
+    public void setThumbnailPath(String path){
+        this.thumbnail = path;
     }
 }
