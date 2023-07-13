@@ -4,6 +4,8 @@ import com.boardproject.File.FileService;
 import com.boardproject._core.errors.exception.Exception404;
 import com.boardproject.board.dto.BoardReqeust;
 import com.boardproject.board.dto.BoardResponse;
+import com.boardproject.user.User;
+import com.boardproject.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,4 +44,9 @@ public class BoardService {
         return new BoardResponse.DetailsDTO(boardPS,user);
     }
 
+    @Transactional
+    public void delete(BoardReqeust.DeleteDTO deleteDTO) {
+        boardRepository.deleteById(deleteDTO.getId());
+        fileService.delete(deleteDTO.getThumbnail());
+    }
 }

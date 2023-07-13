@@ -11,10 +11,12 @@
     <th:block th:if="${user.id} == ${board.writerId}">
         <form th:action="@{/board/delete}" method="post">
             <input type="hidden" name="id" th:value="${board.id}">
+            <input type="hidden" name="thumbnail" th:value="${board.thumbnail}">
             <input type="submit" value="삭제 하기" style="float: right;">
         </form>
         <form th:action="@{/board/update}" method="post">
             <input type="hidden" name="id" th:value="${board.id}">
+            <input type="hidden" name="thumbnail" th:value="${board.thumbnail}">
             <input type="submit" value="수정 하기" style="float: right;">
         </form>
     </th:block>

@@ -1,10 +1,8 @@
 package com.boardproject.board;
 
 import com.boardproject._core.security.CustomUserDetails;
-import com.boardproject.board.BoardService;
 import com.boardproject.board.dto.BoardReqeust;
 import com.boardproject.board.dto.BoardResponse;
-import com.boardproject.user.UserResponse;
 import com.boardproject.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -45,5 +43,12 @@ public class BoardController {
         model.addAttribute("board", boardDTO);
         model.addAttribute("user", userDetails.getUser());
         return "boardDetails";
+    }
+
+    // @Todo 삭제 후 목록 보기로 이동 (목록 보기 url 연결 필요)
+    @PostMapping("/delete")
+    public String create(@Valid BoardReqeust.DeleteDTO deleteDTO, Errors errors) {
+        boardService.delete(deleteDTO);
+        return "redirect:";
     }
 }

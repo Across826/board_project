@@ -36,4 +36,13 @@ public class BoardReqeust {
                     .build();
         }
     }
+
+    @Getter
+    @Setter
+    public static class DeleteDTO{
+        @NotNull
+        private Long id;
+
+        private String thumbnail;
+    }
 }

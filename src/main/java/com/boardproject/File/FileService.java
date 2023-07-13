@@ -54,4 +54,15 @@ public class FileService {
             throw new Exception500("서버: 파일 로드 오류!");
         }
     }
+
+    @Transactional
+    public void delete(String url){
+        try {
+            Path path = Paths.get(url);
+
+            Files.delete(path);
+        } catch (Exception e) {
+            throw new Exception500("서버: 파일 삭제 오류!");
+        }
+    }
 }
