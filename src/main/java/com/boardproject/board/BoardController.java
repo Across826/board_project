@@ -41,10 +41,8 @@ public class BoardController {
     @GetMapping("/{id}")
     public String read(Model model, @PathVariable("id") Long id, @AuthenticationPrincipal CustomUserDetails userDetails) {
         BoardResponse.DetailsDTO boardDTO = boardService.getDetailsById(id);
-        UserResponse.BoardWriterDTO writerDTO = userService.getBoardWriterById(boardDTO.getUserId());
 
         model.addAttribute("board", boardDTO);
-        model.addAttribute("writer", writerDTO);
         model.addAttribute("user", userDetails.getUser());
         return "boardDetails";
     }

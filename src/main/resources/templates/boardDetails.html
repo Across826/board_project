@@ -7,8 +7,8 @@
 
 <body>
     <h1>[(${board.title})]</h1>
-    <span>작성자: <b>[(${writer.nickName})]</b></span>
-    <th:block th:if="${user.id} == ${writer.id}">
+    <span>작성자: <b>[(${board.writerNickName})]</b></span>
+    <th:block th:if="${user.id} == ${board.writerId}">
         <form th:action="@{/board/delete}" method="post">
             <input type="hidden" name="id" th:value="${board.id}">
             <input type="submit" value="삭제 하기" style="float: right;">

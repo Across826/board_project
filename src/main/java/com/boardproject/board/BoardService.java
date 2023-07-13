@@ -15,6 +15,7 @@ import java.util.Optional;
 @Service
 public class BoardService {
     private final BoardRepository boardRepository;
+    private final UserRepository userRepository;
     private final FileService fileService;
 
     @Transactional
@@ -33,8 +34,12 @@ public class BoardService {
     @Transactional
     public BoardResponse.DetailsDTO getDetailsById(Long boardId){
         Optional<Board> boardOP = boardRepository.findById(boardId);
-        Board board = boardOP.orElseThrow(() -> new Exception404("개시글을 찾을 수 없습니다."));
-        return new BoardResponse.DetailsDTO(board);
+        Board boardPS = boardOP.orElseThrow(() -> new Exception404("개시글을 찾을 수 없습니다."));
+
+        Optional<User> userOP = userRepository.findById(boardPS.getUserId());
+        User user = userOP.orElseThrow(() -> new Exception404("유저를 찾을 수 없습니다."));
+
+        return new BoardResponse.DetailsDTO(boardPS,user);
     }
 
 }
