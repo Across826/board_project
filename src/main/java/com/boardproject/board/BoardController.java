@@ -1,4 +1,4 @@
-package com.boardproject.board.controller;
+package com.boardproject.board;
 
 import com.boardproject._core.security.CustomUserDetails;
 import com.boardproject.board.BoardService;
