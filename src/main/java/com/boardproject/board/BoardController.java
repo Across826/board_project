@@ -3,7 +3,6 @@ package com.boardproject.board;
 import com.boardproject._core.security.CustomUserDetails;
 import com.boardproject.board.dto.BoardReqeust;
 import com.boardproject.board.dto.BoardResponse;
-import com.boardproject.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -22,7 +21,6 @@ import javax.validation.Valid;
 @Controller
 public class BoardController {
     private final BoardService boardService;
-    private final UserService userService;
 
     @GetMapping("/create")
     public String create(Model model, @AuthenticationPrincipal CustomUserDetails userDetails) {
