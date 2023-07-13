@@ -1,5 +1,6 @@
 package com.boardproject.board;
 
+import com.boardproject.File.FileService;
 import com.boardproject._core.errors.exception.Exception404;
 import com.boardproject.board.dto.BoardReqeust;
 import com.boardproject.board.dto.BoardResponse;
@@ -14,14 +15,14 @@ import java.util.Optional;
 @Service
 public class BoardService {
     private final BoardRepository boardRepository;
-    private com.boardproject._core.utils.FileHandler FileHandler;
+    private final FileService fileService;
 
     @Transactional
     public BoardResponse.CreateDTO create(BoardReqeust.BoardFormDTO boardFormDTO, MultipartFile file) {
         Board board = boardFormDTO.toEntity();
 
         if(!file.isEmpty()) {
-            String savedPath = FileHandler.save(file);
+            String savedPath = fileService.save(file);
             board.setThumbnailPath(savedPath);
         }
 

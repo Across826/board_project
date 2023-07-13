@@ -13,7 +13,7 @@
         <button th:onclick="|location.href='@{redirect:/board/update/{id}(id=${board.id})}'|" style="float: right;">수정 하기</button>
     </th:block>
     <br/>
-    <img th:if="${not #strings.isEmpty(board.thumbnail)}" th:src="${board.thumbnail}"><br/>
+    <img th:if="${not #strings.isEmpty(board.thumbnail)}" th:src="@{/file/load(url=${board.thumbnail})}"><br/>
     <p class="text-dark mb-0">[(${board.content})]</p>
     <hr/>
     <h2>댓글</h2>
