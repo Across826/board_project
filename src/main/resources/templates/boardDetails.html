@@ -9,8 +9,14 @@
     <h1>[(${board.title})]</h1>
     <span>작성자: <b>[(${writer.nickName})]</b></span>
     <th:block th:if="${user.id} == ${writer.id}">
-        <button th:onclick="|location.href='@{redirect:/board/delete/{id}(id=${board.id})}'|" style="float: right;">삭제 하기</button>
-        <button th:onclick="|location.href='@{redirect:/board/update/{id}(id=${board.id})}'|" style="float: right;">수정 하기</button>
+        <form th:action="@{/board/delete}" method="post">
+            <input type="hidden" name="id" th:value="${board.id}">
+            <input type="submit" value="삭제 하기" style="float: right;">
+        </form>
+        <form th:action="@{/board/update}" method="post">
+            <input type="hidden" name="id" th:value="${board.id}">
+            <input type="submit" value="수정 하기" style="float: right;">
+        </form>
     </th:block>
     <br/>
     <img th:if="${not #strings.isEmpty(board.thumbnail)}" th:src="@{/file/load(url=${board.thumbnail})}"><br/>
