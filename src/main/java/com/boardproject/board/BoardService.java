@@ -32,12 +32,8 @@ public class BoardService {
     @Transactional
     public BoardResponse.DetailsDTO getDetailsById(Long boardId){
         Optional<Board> boardOP = boardRepository.findById(boardId);
-
-        if(boardOP.isEmpty()){
-            throw new Exception404("개시글을 찾을 수 없습니다.");
-        }
-
-        return new BoardResponse.DetailsDTO(boardOP.get());
+        Board board = boardOP.orElseThrow(() -> new Exception404("개시글을 찾을 수 없습니다."));
+        return new BoardResponse.DetailsDTO(board);
     }
 
 }

@@ -15,11 +15,7 @@ public class UserService {
     @Transactional
     public UserResponse.BoardWriterDTO getBoardWriterById(Long userId) {
         Optional<User> userOP = userRepository.findById(userId);
-
-        if(userOP.isEmpty()){
-            throw new Exception404("유저를 찾을 수 없습니다.");
-        }
-
-        return new UserResponse.BoardWriterDTO(userOP.get());
+        User user = userOP.orElseThrow(() -> new Exception404("유저를 찾을 수 없습니다."));
+        return new UserResponse.BoardWriterDTO(user);
     }
 }
