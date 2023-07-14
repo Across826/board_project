@@ -26,7 +26,7 @@ public class BoardService {
 
         if(!file.isEmpty()) {
             String savedPath = fileService.save(file);
-            board.setThumbnailPath(savedPath);
+            board.setThumbnail(savedPath);
         }
 
         Board boardPS = boardRepository.save(board);
@@ -42,6 +42,16 @@ public class BoardService {
         User user = userOP.orElseThrow(() -> new Exception404("유저를 찾을 수 없습니다."));
 
         return new BoardResponse.DetailsDTO(boardPS,user);
+    }
+
+    @Transactional
+    public BoardResponse.UpdateDTO update(BoardReqeust.UpdateDTO updateDTO) {
+        Optional<Board> boardOP = boardRepository.findById(updateDTO.getId());
+        Board boardPS = boardOP.orElseThrow(() -> new Exception404("개시글을 찾을 수 없습니다."));
+
+        updateDTO.setEntity(boardPS);
+
+        return new BoardResponse.UpdateDTO(boardPS);
     }
 
     @Transactional

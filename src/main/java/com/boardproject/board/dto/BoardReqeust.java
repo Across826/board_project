@@ -39,6 +39,41 @@ public class BoardReqeust {
 
     @Getter
     @Setter
+    public static class UpdateFormDTO {
+        @NotNull
+        private Long id;
+
+        @NotEmpty
+        private String title;
+
+        @NotEmpty
+        private String content;
+
+        private String thumbnail;
+    }
+
+    @Getter
+    @Setter
+    public static class UpdateDTO{
+        @NotNull
+        private Long id;
+
+        @NotEmpty
+        @Length(max=100)
+        private String title;
+
+        @NotEmpty
+        @Length(max=1000)
+        private String content;
+
+        public void setEntity(Board boardPS){
+            boardPS.setTitle(title);
+            boardPS.setContent(content);
+        }
+    }
+
+    @Getter
+    @Setter
     public static class DeleteDTO{
         @NotNull
         private Long id;

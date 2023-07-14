@@ -3,6 +3,7 @@ package com.boardproject.board;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
@@ -12,6 +13,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @DynamicInsert
 @Entity
@@ -58,9 +60,5 @@ public class Board {
         this.isHide = isHide;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-    }
-
-    public void setThumbnailPath(String path){
-        this.thumbnail = path;
     }
 }

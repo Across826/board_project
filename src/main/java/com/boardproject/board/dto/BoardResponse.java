@@ -41,4 +41,19 @@ public class BoardResponse {
             this.thumbnail = board.getThumbnail();
         }
     }
+
+    @Getter
+    public static class UpdateDTO {
+        private Long id;
+        private Long userId;
+        private String catagory;
+        private String title;
+
+        public UpdateDTO(Board board) {
+            this.id = board.getId();
+            this.userId = board.getUserId();
+            this.catagory = board.getCatagory();
+            this.title = board.getTitle();
+        }
+    }
 }

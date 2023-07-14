@@ -43,6 +43,18 @@ public class BoardController {
         return "boardDetails";
     }
 
+    @PostMapping("/update/form")
+    public String updateForm(Model model, @Valid BoardReqeust.UpdateFormDTO updateDTO, Errors errors) {
+        model.addAttribute("board", updateDTO);
+        return "boardUpdateForm";
+    }
+
+    @PostMapping("/update")
+    public String update(@Valid BoardReqeust.UpdateDTO updateDTO, Errors errors) {
+        BoardResponse.UpdateDTO update = boardService.update(updateDTO);
+        return "redirect:/board/" + update.getId();
+    }
+
     // @Todo 삭제 후 목록 보기로 이동 (목록 보기 url 연결 필요)
     @PostMapping("/delete")
     public String delete(@Valid BoardReqeust.DeleteDTO deleteDTO, Errors errors) {
