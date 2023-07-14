@@ -23,7 +23,7 @@
         </form>
     </th:block>
     <br/>
-    <img th:if="${not #strings.isEmpty(board.thumbnail)}" th:src="@{/file/load(url=${board.thumbnail})}"><br/>
+<!--    <img th:if="${not #strings.isEmpty(board.thumbnail)}" th:src="@{/file/load(path='saved',name=${board.thumbnail})}"><br/>-->
     <p class="text-dark mb-0">[(${board.content})]</p>
     <hr/>
     <h2>댓글</h2>

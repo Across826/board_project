@@ -10,9 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import static com.boardproject.File.FileService.SAVE_SERVER_PATH;
-import static com.boardproject.File.FileService.SEPARATOR_CHAR;
-
 @RequiredArgsConstructor
 @Component
 public class DBInit {
@@ -40,15 +37,6 @@ public class DBInit {
                     .roles("우수회원")
                     .build();
             userRepository.save(love);
-
-            Board boardWithThumbnail = Board.builder()
-                    .userId(1L)
-                    .catagory("새싹회원")
-                    .title("썸네일 있는 글")
-                    .content("<p>하이하이</p>")
-                    .thumbnail(SAVE_SERVER_PATH+SEPARATOR_CHAR +"f5137072-fc18-4f96-b4be-135b03899ae9_BE 5기 QR.png")
-                    .build();
-            boardRepository.save(boardWithThumbnail);
 
             Board boardNoThumbnail = Board.builder()
                     .userId(1L)

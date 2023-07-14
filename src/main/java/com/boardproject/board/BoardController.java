@@ -29,8 +29,8 @@ public class BoardController {
     }
 
     @PostMapping("/create")
-    public String create(@Valid BoardReqeust.CreateFormDTO createFormDTO, MultipartFile file, Errors errors) {
-        BoardResponse.CreateDTO boradDTO = boardService.create(createFormDTO, file);
+    public String create(@Valid BoardReqeust.CreateFormDTO createFormDTO, Errors errors) {
+        BoardResponse.CreateDTO boradDTO = boardService.create(createFormDTO);
         return "redirect:/board/" + boradDTO.getId();
     }
 

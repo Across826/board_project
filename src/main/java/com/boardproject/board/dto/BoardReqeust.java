@@ -19,6 +19,8 @@ public class BoardReqeust {
         @NotEmpty
         private String catagory;
 
+        private String thumbnail;
+
         @NotEmpty
         @Length(max=100)
         private String title;
@@ -31,6 +33,7 @@ public class BoardReqeust {
             return Board.builder()
                     .userId(userId)
                     .catagory(catagory)
+                    .thumbnail(thumbnail)
                     .title(title)
                     .content(content)
                     .build();
@@ -58,6 +61,8 @@ public class BoardReqeust {
         @NotNull
         private Long id;
 
+        private String thumbnail;
+
         @NotEmpty
         @Length(max=100)
         private String title;
@@ -67,6 +72,7 @@ public class BoardReqeust {
         private String content;
 
         public void setEntity(Board boardPS){
+            boardPS.setThumbnail(thumbnail);
             boardPS.setTitle(title);
             boardPS.setContent(content);
         }

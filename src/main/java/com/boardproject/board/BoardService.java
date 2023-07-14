@@ -21,13 +21,15 @@ public class BoardService {
     private final FileService fileService;
 
     @Transactional
-    public BoardResponse.CreateDTO create(BoardReqeust.CreateFormDTO createFormDTO, MultipartFile file) {
-        Board board = createFormDTO.toEntity();
+    public BoardResponse.CreateDTO create(BoardReqeust.CreateFormDTO createFormDTO) {
+        // 사진 저장
+        fileService.moveFileToSave();
 
-        if(!file.isEmpty()) {
-            String savedPath = fileService.save(file);
-            board.setThumbnail(savedPath);
-        }
+        // summernote content 내 파일 경로 temp->saved 로 치환
+        String replaced = createFormDTO.getContent().replaceAll("path=temp", "path=saved");
+        createFormDTO.setContent(replaced);
+
+        Board board = createFormDTO.toEntity();
 
         Board boardPS = boardRepository.save(board);
         return new BoardResponse.CreateDTO(boardPS);
