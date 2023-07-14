@@ -45,7 +45,7 @@ public class BoardController {
 
     // @Todo 삭제 후 목록 보기로 이동 (목록 보기 url 연결 필요)
     @PostMapping("/delete")
-    public String create(@Valid BoardReqeust.DeleteDTO deleteDTO, Errors errors) {
+    public String delete(@Valid BoardReqeust.DeleteDTO deleteDTO, Errors errors) {
         boardService.delete(deleteDTO);
         return "redirect:";
     }
