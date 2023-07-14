@@ -25,12 +25,12 @@ public class BoardController {
     @GetMapping("/create")
     public String create(Model model, @AuthenticationPrincipal CustomUserDetails userDetails) {
         model.addAttribute("user", userDetails.getUser());
-        return "boardForm";
+        return "board/boardCreateForm";
     }
 
     @PostMapping("/create")
-    public String create(@Valid BoardReqeust.BoardFormDTO boardFormDTO, MultipartFile file, Errors errors) {
-        BoardResponse.CreateDTO boradDTO = boardService.create(boardFormDTO, file);
+    public String create(@Valid BoardReqeust.CreateFormDTO createFormDTO, MultipartFile file, Errors errors) {
+        BoardResponse.CreateDTO boradDTO = boardService.create(createFormDTO, file);
         return "redirect:/board/" + boradDTO.getId();
     }
 
@@ -40,13 +40,13 @@ public class BoardController {
 
         model.addAttribute("board", boardDTO);
         model.addAttribute("user", userDetails.getUser());
-        return "boardDetails";
+        return "board/boardDetails";
     }
 
     @PostMapping("/update/form")
     public String updateForm(Model model, @Valid BoardReqeust.UpdateFormDTO updateDTO, Errors errors) {
         model.addAttribute("board", updateDTO);
-        return "boardUpdateForm";
+        return "board/boardUpdateForm";
     }
 
     @PostMapping("/update")

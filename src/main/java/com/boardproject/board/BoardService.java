@@ -21,8 +21,8 @@ public class BoardService {
     private final FileService fileService;
 
     @Transactional
-    public BoardResponse.CreateDTO create(BoardReqeust.BoardFormDTO boardFormDTO, MultipartFile file) {
-        Board board = boardFormDTO.toEntity();
+    public BoardResponse.CreateDTO create(BoardReqeust.CreateFormDTO createFormDTO, MultipartFile file) {
+        Board board = createFormDTO.toEntity();
 
         if(!file.isEmpty()) {
             String savedPath = fileService.save(file);

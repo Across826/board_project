@@ -12,7 +12,7 @@ public class BoardReqeust {
 
     @Getter
     @Setter
-    public static class BoardFormDTO{
+    public static class CreateFormDTO {
         @NotNull
         private Long userId;
 
