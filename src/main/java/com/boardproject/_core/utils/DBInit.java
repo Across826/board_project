@@ -25,7 +25,7 @@ public class DBInit {
                     .password(passwordEncoder.encode("1234"))
                     .email("ssar@nate.com")
                     .nickName("보리")
-                    .roles("새싹회원")
+                    .roles("GENERAL")
                     .build();
             userRepository.save(ssar);
 
@@ -34,7 +34,7 @@ public class DBInit {
                     .password(passwordEncoder.encode("1234"))
                     .email("love@nate.com")
                     .nickName("러브")
-                    .roles("우수회원")
+                    .roles("GENERAL")
                     .build();
             userRepository.save(love);
 
@@ -52,7 +52,7 @@ public class DBInit {
 
             Board boardNoThumbnail = Board.builder()
                     .userId(1L)
-                    .catagory("새싹회원")
+                    .catagory("GENERAL")
                     .title("썸네일 없는 글")
                     .content("<p>썸네일이 없어요!</p>")
                     .build();

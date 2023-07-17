@@ -2,7 +2,7 @@ package com.boardproject.board;
 
 import com.boardproject._core.security.CustomUserDetails;
 import com.boardproject._core.utils.JsoupParser;
-import com.boardproject.board.dto.BoardReqeust;
+import com.boardproject.board.dto.BoardRequest;
 import com.boardproject.board.dto.BoardResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -31,7 +30,7 @@ public class BoardController {
     }
 
     @PostMapping("/create")
-    public String create(@Valid BoardReqeust.CreateFormDTO createFormDTO, Errors errors) {
+    public String create(@Valid BoardRequest.CreateFormDTO createFormDTO, Errors errors) {
         BoardResponse.CreateDTO boradDTO = boardService.create(createFormDTO);
         return "redirect:/board/" + boradDTO.getId();
     }
@@ -46,7 +45,7 @@ public class BoardController {
     }
 
     @PostMapping("/update/form")
-    public String updateForm(Model model, @Valid BoardReqeust.UpdateFormDTO updateDTO, Errors errors) {
+    public String updateForm(Model model, @Valid BoardRequest.UpdateFormDTO updateDTO, Errors errors) {
         model.addAttribute("board", updateDTO);
 
         List<String> parsedImgName = JsoupParser.parseImgName(updateDTO.getContent());
@@ -55,14 +54,14 @@ public class BoardController {
     }
 
     @PostMapping("/update")
-    public String update(@Valid BoardReqeust.UpdateDTO updateDTO, Errors errors) {
+    public String update(@Valid BoardRequest.UpdateDTO updateDTO, Errors errors) {
         BoardResponse.UpdateDTO update = boardService.update(updateDTO);
         return "redirect:/board/" + update.getId();
     }
 
     // @Todo 삭제 후 목록 보기로 이동 (목록 보기 url 연결 필요)
     @PostMapping("/delete")
-    public String delete(@Valid BoardReqeust.DeleteDTO deleteDTO, Errors errors) {
+    public String delete(@Valid BoardRequest.DeleteDTO deleteDTO, Errors errors) {
         boardService.delete(deleteDTO);
         return "redirect:";
     }

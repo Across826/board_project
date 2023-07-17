@@ -17,9 +17,8 @@
         <input type="hidden" name="userId" th:value="${user.id}">
         <input type="hidden" name="catagory" th:value="${user.roles}">
         제목 <input type="text" name="title"><br><br>
-        썸네일 사진 선택 <select id="thumbnail" name="thumbnail"></select>
-        <textarea id="summernote" type="text" th:class="form-control"
-                  name="content" rows="10"></textarea><br>
+        썸네일 사진 선택 <select id="thumbnail" name="thumbnail"></select><br>
+        <textarea id="summernote" type="text" th:class="form-control" name="content" rows="10"></textarea><br>
         <input type="submit" value="작성하기"/><br>
     </form>
 

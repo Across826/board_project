@@ -19,8 +19,7 @@
         <select id="thumbnail" name="thumbnail">
             <option th:each="name : ${imgList}" th:value="${name}">[(${name})]</option>
         </select><br/>
-        <textarea id="summernote" type="text" th:class="form-control"
-                  name="content" rows="10">[(${board.content})]</textarea><br>
+        <textarea id="summernote" type="text" th:class="form-control" name="content" rows="10">[(${board.content})]</textarea><br>
         <input type="submit" value="수정하기"/><br>
     </form>
 

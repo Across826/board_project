@@ -3,13 +3,12 @@ package com.boardproject.board;
 import com.boardproject.File.FileService;
 import com.boardproject._core.errors.exception.Exception404;
 import com.boardproject._core.utils.JsoupParser;
-import com.boardproject.board.dto.BoardReqeust;
+import com.boardproject.board.dto.BoardRequest;
 import com.boardproject.board.dto.BoardResponse;
 import com.boardproject.user.User;
 import com.boardproject.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -23,7 +22,7 @@ public class BoardService {
     private final FileService fileService;
 
     @Transactional
-    public BoardResponse.CreateDTO create(BoardReqeust.CreateFormDTO createFormDTO) {
+    public BoardResponse.CreateDTO create(BoardRequest.CreateFormDTO createFormDTO) {
         // 사진 저장
         fileService.moveFileToSave();
 
@@ -40,7 +39,7 @@ public class BoardService {
     @Transactional
     public BoardResponse.DetailsDTO getDetailsById(Long boardId){
         Optional<Board> boardOP = boardRepository.findById(boardId);
-        Board boardPS = boardOP.orElseThrow(() -> new Exception404("개시글을 찾을 수 없습니다."));
+        Board boardPS = boardOP.orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다."));
 
         Optional<User> userOP = userRepository.findById(boardPS.getUserId());
         User user = userOP.orElseThrow(() -> new Exception404("유저를 찾을 수 없습니다."));
@@ -49,9 +48,9 @@ public class BoardService {
     }
 
     @Transactional
-    public BoardResponse.UpdateDTO update(BoardReqeust.UpdateDTO updateDTO) {
+    public BoardResponse.UpdateDTO update(BoardRequest.UpdateDTO updateDTO) {
         Optional<Board> boardOP = boardRepository.findById(updateDTO.getId());
-        Board boardPS = boardOP.orElseThrow(() -> new Exception404("개시글을 찾을 수 없습니다."));
+        Board boardPS = boardOP.orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다."));
 
         updateDTO.setEntity(boardPS);
 
@@ -59,7 +58,7 @@ public class BoardService {
     }
 
     @Transactional
-    public void delete(BoardReqeust.DeleteDTO deleteDTO) {
+    public void delete(BoardRequest.DeleteDTO deleteDTO) {
         boardRepository.deleteById(deleteDTO.getId());
 
         // 게시글 내 이미지 모두 삭제
