@@ -10,7 +10,7 @@
 
 <body>
     <h1>[(${board.title})]</h1>
-    <span>작성자: <b>[(${board.writerNickName})]</b></span>
+    <div>작성자: <b>[(${board.writerNickName})]</b></div>
     <th:block th:if="${user.id} == ${board.writerId}">
         <form th:action="@{/board/delete}" method="post">
             <input type="hidden" name="id" th:value="${board.id}">
@@ -26,7 +26,7 @@
         </form>
     </th:block>
     <br/>
-    <p class="text-dark mb-0">[(${board.content})]</p>
+    <div class="text-dark mb-0">[(${board.content})]</div>
     <hr/>
     <h2>댓글</h2>
     <form th:action="@{/comment/create}" method="post">
@@ -40,6 +40,16 @@
     </form>
     <hr/>
 <!--댓글 리스트 추가 해야함-->
+    <div>
+        <span>[(${#lists.size(board.commentList)})]개의 댓글</span>
+        <th:block th:if="${#lists.size(board.commentList)} != 0">
+            <div th:each="comment : ${board.commentList}" style="background-color: lightgray">
+                <p th:text="${comment.user.nickName}"></p>
+                <p th:text="${comment.content}"></p>
+            </div>
+        </th:block>
+    </div>
+
 
     <script>
         $(document).ready(function() {
