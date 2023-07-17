@@ -38,6 +38,18 @@ public class DBInit {
                     .build();
             userRepository.save(love);
 
+            Board boardWithThumbnail = Board.builder()
+                    .userId(1L)
+                    .catagory("새싹회원")
+                    .title("썸네일 있는 글")
+                    .content("<p>썸네일이 있어요! " +
+                            "<img src=\"/file/load?path=saved&name=590ea280-bb19-4dd6-9532-af9d0c13355b_HTTP-HTTPS-SSL-Certificate-Unsecure-scaled-e1661731905954.jpg\" style=\"width: 975.733px;\">" +
+                            "<img src=\"/file/load?path=saved&name=9350b9af-6ea5-45da-970a-17e0a09abce3_BE 5기 QR.png\" style=\"width: 480px;\">" +
+                            "</p>")
+                    .thumbnail("9350b9af-6ea5-45da-970a-17e0a09abce3_BE 5기 QR.png")
+                    .build();
+            boardRepository.save(boardWithThumbnail);
+
             Board boardNoThumbnail = Board.builder()
                     .userId(1L)
                     .catagory("새싹회원")

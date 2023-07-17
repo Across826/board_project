@@ -1,6 +1,7 @@
 package com.boardproject.board;
 
 import com.boardproject._core.security.CustomUserDetails;
+import com.boardproject._core.utils.JsoupParser;
 import com.boardproject.board.dto.BoardReqeust;
 import com.boardproject.board.dto.BoardResponse;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/board")
@@ -46,6 +48,9 @@ public class BoardController {
     @PostMapping("/update/form")
     public String updateForm(Model model, @Valid BoardReqeust.UpdateFormDTO updateDTO, Errors errors) {
         model.addAttribute("board", updateDTO);
+
+        List<String> parsedImgName = JsoupParser.parseImgName(updateDTO.getContent());
+        model.addAttribute("imgList", parsedImgName);
         return "board/boardUpdateForm";
     }
 
