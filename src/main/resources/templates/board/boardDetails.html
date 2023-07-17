@@ -44,7 +44,16 @@
         <span>[(${#lists.size(board.commentList)})]개의 댓글</span>
         <th:block th:if="${#lists.size(board.commentList)} != 0">
             <div th:each="comment : ${board.commentList}" style="background-color: lightgray">
+                <th:block th:if="${user.id} == ${comment.user.id}">
+                    <form th:action="@{/comment/delete}" method="post">
+                        <input type="hidden" name="id" th:value="${comment.id}">
+                        <input type="hidden" name="boardId" th:value="${board.id}">
+                        <input type="submit" value="삭제" style="float: right;">
+                    </form>
+                </th:block>
+
                 <p th:text="${comment.user.nickName}"></p>
+
                 <p th:text="${comment.content}"></p>
             </div>
         </th:block>

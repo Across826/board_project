@@ -19,4 +19,10 @@ public class CommentController {
         commentService.create(createDTO);
         return "redirect:/board/" + createDTO.getBoardId();
     }
+
+    @RequestMapping("/delete")
+    public String delete(@Valid CommentRequest.DeleteDTO deleteDTO, Error error){
+        commentService.delete(deleteDTO);
+        return "redirect:/board/" + deleteDTO.getBoardId();
+    }
 }

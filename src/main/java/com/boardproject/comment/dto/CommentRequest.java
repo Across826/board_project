@@ -43,4 +43,13 @@ public class CommentRequest {
                     .build();
         }
     }
+
+    @Getter
+    @Setter
+    public static class DeleteDTO {
+        @NotNull
+        private Long id;
+        @NotNull
+        private Long boardId;
+    }
 }

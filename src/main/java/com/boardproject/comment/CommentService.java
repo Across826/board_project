@@ -33,4 +33,9 @@ public class CommentService {
         Comment comment = createDTO.toEntity();
         commentRepository.save(comment);
     }
+
+    @Transactional
+    public void delete(CommentRequest.DeleteDTO deleteDTO) {
+        commentRepository.deleteById(deleteDTO.getId());
+    }
 }
