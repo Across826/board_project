@@ -31,6 +31,7 @@ dependencies {
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'commons-io:commons-io:2.6'
+    implementation 'org.jsoup:jsoup:1.15.4'
     runtimeOnly 'com.h2database:h2'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'

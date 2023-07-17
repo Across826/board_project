@@ -84,6 +84,6 @@ public class BoardReqeust {
         @NotNull
         private Long id;
 
-        private String thumbnail;
+        private String content;
     }
 }

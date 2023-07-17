@@ -2,6 +2,7 @@ package com.boardproject.board;
 
 import com.boardproject.File.FileService;
 import com.boardproject._core.errors.exception.Exception404;
+import com.boardproject._core.utils.JsoupParser;
 import com.boardproject.board.dto.BoardReqeust;
 import com.boardproject.board.dto.BoardResponse;
 import com.boardproject.user.User;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -59,6 +61,9 @@ public class BoardService {
     @Transactional
     public void delete(BoardReqeust.DeleteDTO deleteDTO) {
         boardRepository.deleteById(deleteDTO.getId());
-        fileService.delete(deleteDTO.getThumbnail());
+
+        // 게시글 내 이미지 모두 삭제
+        List<String> parsedImgNames = JsoupParser.parseImgName(deleteDTO.getContent());
+        parsedImgNames.forEach(fileService::delete);
     }
 }
