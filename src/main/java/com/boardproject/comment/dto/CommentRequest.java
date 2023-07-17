@@ -1,6 +1,8 @@
 package com.boardproject.comment.dto;
 
+import com.boardproject.board.Board;
 import com.boardproject.comment.Comment;
+import com.boardproject.user.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
@@ -27,10 +29,14 @@ public class CommentRequest {
         @Length(max=50)
         private String content;
 
+        private Board board;
+
+        private User user;
+
         public Comment toEntity(){
             return Comment.builder()
-                    .boardId(boardId)
-                    .userId(userId)
+                    .board(board)
+                    .user(user)
                     .depth(depth)
                     .groupId(groupId)
                     .content(content)

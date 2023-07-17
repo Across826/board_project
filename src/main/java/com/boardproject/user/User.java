@@ -1,11 +1,13 @@
 package com.boardproject.user;
 
+import com.boardproject.comment.Comment;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @NoArgsConstructor
@@ -30,6 +32,9 @@ public class User {
     private String nickName;
 
     private String roles;
+
+    @OneToMany(mappedBy = "user")
+    private List<Comment> commentList;
 
     @Column(nullable = false)
     private LocalDateTime createdAt;

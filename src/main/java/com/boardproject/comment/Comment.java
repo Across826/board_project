@@ -1,5 +1,7 @@
 package com.boardproject.comment;
 
+import com.boardproject.board.Board;
+import com.boardproject.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,24 +34,26 @@ public class Comment {
     @Column(name = "group_id")
     private Long groupId;   // 대댓글인 경우 부모 댓글의 인덱스
 
-    @Column(name = "board_id",nullable = false)
-    private Long boardId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="board_id")
+    private Board board;
 
-    @Column(name = "user_id",nullable = false)
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
 
     @Column(name="created_at",nullable = false)
     @CreationTimestamp
     private Timestamp createdAt;
 
     @Builder
-    public Comment(Long id, String content, int depth, Long groupId, Long boardId, Long userId, Timestamp createdAt) {
+    public Comment(Long id, String content, int depth, Long groupId, Board board, User user, Timestamp createdAt) {
         this.id = id;
         this.content = content;
         this.depth = depth;
         this.groupId = groupId;
-        this.boardId = boardId;
-        this.userId = userId;
+        this.board = board;
+        this.user = user;
         this.createdAt = createdAt;
     }
 }

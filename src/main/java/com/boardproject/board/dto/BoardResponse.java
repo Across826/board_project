@@ -1,8 +1,11 @@
 package com.boardproject.board.dto;
 
 import com.boardproject.board.Board;
+import com.boardproject.comment.Comment;
 import com.boardproject.user.User;
 import lombok.Getter;
+
+import java.util.List;
 
 public class BoardResponse {
 
@@ -27,10 +30,9 @@ public class BoardResponse {
         private Long writerId;
         private String writerNickName;
         private String title;
-
         private String content;
-
         private String thumbnail;
+        private List<Comment> commentList;
 
         public DetailsDTO(Board board, User user) {
             this.id = board.getId();
@@ -39,6 +41,7 @@ public class BoardResponse {
             this.title = board.getTitle();
             this.content = board.getContent();
             this.thumbnail = board.getThumbnail();
+            this.commentList = board.getCommentList();
         }
     }
 
