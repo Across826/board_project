@@ -4,7 +4,6 @@ import com.boardproject._core.security.CustomUserDetails;
 import com.boardproject._core.utils.JsoupParser;
 import com.boardproject.board.dto.BoardRequest;
 import com.boardproject.board.dto.BoardResponse;
-import com.boardproject.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;

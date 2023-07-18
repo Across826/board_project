@@ -8,9 +8,8 @@ import lombok.Getter;
 import java.util.List;
 
 public class BoardResponse {
-
     @Getter
-    public static class CreateDTO{
+    public static class CreateDTO {
         private Long id;
         private User user;
         private String catagory;
@@ -25,7 +24,7 @@ public class BoardResponse {
     }
 
     @Getter
-    public static class DetailsDTO{
+    public static class DetailsDTO {
         private Long id;
         private User user;
         private String title;

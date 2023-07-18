@@ -41,7 +41,7 @@ public class BoardService {
     }
 
     @Transactional
-    public BoardResponse.DetailsDTO getDetailsById(Long boardId){
+    public BoardResponse.DetailsDTO getDetailsById(Long boardId) {
         Optional<Board> boardOP = boardRepository.findById(boardId);
         Board boardPS = boardOP.orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다."));
 

@@ -15,7 +15,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -31,21 +30,21 @@ public class Comment {
 
     @Column(nullable = false)
     @ColumnDefault("0")
-    private int depth ; // 0:댓글, 1:대댓글
+    private int depth; // 0:댓글, 1:대댓글
 
     @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "parent_comment_id")
     private List<Comment> children = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="board_id")
+    @JoinColumn(name = "board_id")
     private Board board;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(name="created_at",nullable = false)
+    @Column(name = "created_at", nullable = false)
     @CreationTimestamp
     private Timestamp createdAt;
 

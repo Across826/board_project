@@ -10,7 +10,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class BoardRequest {
-
     @Getter
     @Setter
     public static class CreateFormDTO {
@@ -23,16 +22,16 @@ public class BoardRequest {
         private String thumbnail;
 
         @NotEmpty
-        @Length(max=100)
+        @Length(max = 100)
         private String title;
 
         @NotEmpty
-        @Length(max=1000)
+        @Length(max = 1000)
         private String content;
 
         private User user;
 
-        public Board toEntity(){
+        public Board toEntity() {
             return Board.builder()
                     .user(user)
                     .catagory(catagory)
@@ -60,21 +59,21 @@ public class BoardRequest {
 
     @Getter
     @Setter
-    public static class UpdateDTO{
+    public static class UpdateDTO {
         @NotNull
         private Long id;
 
         private String thumbnail;
 
         @NotEmpty
-        @Length(max=100)
+        @Length(max = 100)
         private String title;
 
         @NotEmpty
-        @Length(max=1000)
+        @Length(max = 1000)
         private String content;
 
-        public void setEntity(Board boardPS){
+        public void setEntity(Board boardPS) {
             boardPS.setThumbnail(thumbnail);
             boardPS.setTitle(title);
             boardPS.setContent(content);
@@ -83,7 +82,7 @@ public class BoardRequest {
 
     @Getter
     @Setter
-    public static class DeleteDTO{
+    public static class DeleteDTO {
         @NotNull
         private Long id;
 

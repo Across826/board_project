@@ -15,15 +15,14 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileController {
     private final FileService fileService;
 
-    @PostMapping(value="/uploadSummernoteImageFile", produces = "application/json")
-    public JsonObject uploadSummernoteImageFile(@RequestParam MultipartFile file){
-        JsonObject jsonObject = fileService.save(file);
-        return jsonObject;
+    @PostMapping(value = "/uploadSummernoteImageFile", produces = "application/json")
+    public JsonObject uploadSummernoteImageFile(@RequestParam MultipartFile file) {
+        return fileService.save(file);
     }
 
     @GetMapping("/load")
-    public ResponseEntity<?> load(@RequestParam String path, @RequestParam String name){
-        FileResponse.loadDTO loadDTO = fileService.load(path,name);
+    public ResponseEntity<?> load(@RequestParam String path, @RequestParam String name) {
+        FileResponse.loadDTO loadDTO = fileService.load(path, name);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.CONTENT_TYPE, loadDTO.getContentType());

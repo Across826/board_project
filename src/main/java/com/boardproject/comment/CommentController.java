@@ -4,7 +4,6 @@ import com.boardproject.comment.dto.CommentRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 
@@ -15,13 +14,13 @@ public class CommentController {
     private final CommentService commentService;
 
     @RequestMapping("/create")
-    public String create(@Valid CommentRequest.CreateDTO createDTO, Error error){
+    public String create(@Valid CommentRequest.CreateDTO createDTO, Error error) {
         commentService.create(createDTO);
         return "redirect:/board/" + createDTO.getBoardId();
     }
 
     @RequestMapping("/delete")
-    public String delete(@Valid CommentRequest.DeleteDTO deleteDTO, Error error){
+    public String delete(@Valid CommentRequest.DeleteDTO deleteDTO, Error error) {
         commentService.delete(deleteDTO);
         return "redirect:/board/" + deleteDTO.getBoardId();
     }
