@@ -1,7 +1,10 @@
 package com.boardproject.board;
 
+import com.boardproject.comment.Comment;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
@@ -9,8 +12,11 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Getter
+@Setter
+@NoArgsConstructor
 @DynamicInsert
 @Entity
 public class Board {
@@ -36,6 +42,10 @@ public class Board {
     @ColumnDefault("0")
     private int isHide; // 0:보임, 1:숨김/삭제
 
+    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OrderBy("createdAt asc")
+    private List<Comment> commentList;
+
     @Column(name="created_at",nullable = false)
     @CreationTimestamp
     private Timestamp createdAt;
@@ -56,9 +66,5 @@ public class Board {
         this.isHide = isHide;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-    }
-
-    public void setThumbnailPath(String path){
-        this.thumbnail = path;
     }
 }
