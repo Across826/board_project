@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 public class CommentRequest {
 
@@ -23,7 +24,7 @@ public class CommentRequest {
 
         private int depth;
 
-        private Long groupId;
+        private Long parentId;
 
         @NotEmpty
         @Length(max=50)
@@ -33,12 +34,14 @@ public class CommentRequest {
 
         private User user;
 
+        private List<Comment> children;
+
         public Comment toEntity(){
             return Comment.builder()
                     .board(board)
                     .user(user)
                     .depth(depth)
-                    .groupId(groupId)
+                    .children(children)
                     .content(content)
                     .build();
         }

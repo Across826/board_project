@@ -2,6 +2,8 @@ package com.boardproject._core.utils;
 
 import com.boardproject.board.Board;
 import com.boardproject.board.BoardRepository;
+import com.boardproject.comment.Comment;
+import com.boardproject.comment.CommentRepository;
 import com.boardproject.user.User;
 import com.boardproject.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ public class DBInit {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final BoardRepository boardRepository;
+    private final CommentRepository commentRepository;
 
     @Bean
     CommandLineRunner initDB(){
@@ -57,6 +60,14 @@ public class DBInit {
                     .content("<p>썸네일이 없어요!</p>")
                     .build();
             boardRepository.save(boardNoThumbnail);
+
+            Comment comment = Comment.builder()
+                    .depth(0)
+                    .board(boardWithThumbnail)
+                    .user(love)
+                    .content("와 멋져요")
+                    .build();
+            commentRepository.save(comment);
         };
     }
 }

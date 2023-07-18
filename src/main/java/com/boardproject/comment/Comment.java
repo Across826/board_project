@@ -12,6 +12,8 @@ import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Getter
@@ -31,8 +33,9 @@ public class Comment {
     @ColumnDefault("0")
     private int depth ; // 0:댓글, 1:대댓글
 
-    @Column(name = "group_id")
-    private Long groupId;   // 대댓글인 경우 부모 댓글의 인덱스
+    @OneToMany(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "parent_comment_id")
+    private List<Comment> children = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="board_id")
@@ -47,11 +50,11 @@ public class Comment {
     private Timestamp createdAt;
 
     @Builder
-    public Comment(Long id, String content, int depth, Long groupId, Board board, User user, Timestamp createdAt) {
+    public Comment(Long id, String content, int depth, List<Comment> children, Board board, User user, Timestamp createdAt) {
         this.id = id;
         this.content = content;
         this.depth = depth;
-        this.groupId = groupId;
+        this.children = children;
         this.board = board;
         this.user = user;
         this.createdAt = createdAt;
