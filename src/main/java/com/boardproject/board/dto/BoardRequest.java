@@ -1,6 +1,7 @@
 package com.boardproject.board.dto;
 
 import com.boardproject.board.Board;
+import com.boardproject.user.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
@@ -29,9 +30,11 @@ public class BoardRequest {
         @Length(max=1000)
         private String content;
 
+        private User user;
+
         public Board toEntity(){
             return Board.builder()
-                    .userId(userId)
+                    .user(user)
                     .catagory(catagory)
                     .thumbnail(thumbnail)
                     .title(title)

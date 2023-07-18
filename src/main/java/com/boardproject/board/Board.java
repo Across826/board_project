@@ -1,6 +1,7 @@
 package com.boardproject.board;
 
 import com.boardproject.comment.Comment;
+import com.boardproject.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,8 +30,9 @@ public class Board {
     @Column(length = 1000, nullable = false)
     private String content;
 
-    @Column(name = "user_id",nullable = false)
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id")
+    private User user;
 
     private String thumbnail;
 
@@ -55,12 +57,12 @@ public class Board {
     private Timestamp updatedAt;
 
     @Builder
-    public Board(Long id, String title, String content, Long userId, String thumbnail,
+    public Board(Long id, String title, String content, User user, String thumbnail,
                  String catagory, int isHide, Timestamp createdAt, Timestamp updatedAt) {
         this.id = id;
         this.title = title;
         this.content = content;
-        this.userId = userId;
+        this.user = user;
         this.thumbnail = thumbnail;
         this.catagory = catagory;
         this.isHide = isHide;

@@ -14,8 +14,8 @@
 <body>
     <h1>게시글 작성</h1>
     <form th:action="@{/board/create}" method="post" enctype="multipart/form-data" >
-        <input type="hidden" name="userId" th:value="${user.id}">
-        <input type="hidden" name="catagory" th:value="${user.roles}">
+        <input type="hidden" name="userId" th:value="${loginUser.id}">
+        <input type="hidden" name="catagory" th:value="${loginUser.roles}">
         제목 <input type="text" name="title"><br><br>
         썸네일 사진 선택 <select id="thumbnail" name="thumbnail"></select><br>
         <textarea id="summernote" type="text" th:class="form-control" name="content" rows="10"></textarea><br>

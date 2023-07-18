@@ -10,8 +10,8 @@
 
 <body>
     <h1>[(${board.title})]</h1>
-    <div>작성자: <b>[(${board.writerNickName})]</b></div>
-    <th:block th:if="${user.id} == ${board.writerId}">
+    <div>작성자: <b>[(${board.user.nickName})]</b></div>
+    <th:block th:if="${loginUser.id} == ${board.user.id}">
         <form th:action="@{/board/delete}" method="post">
             <input type="hidden" name="id" th:value="${board.id}">
             <input type="hidden" name="content" th:value="${board.content}">
@@ -31,7 +31,7 @@
     <h2>댓글</h2>
     <form id="commentForm" th:action="@{/comment/create}" method="post">
         <input type="hidden" name="boardId" th:value="${board.id}">
-        <input type="hidden" name="userId" th:value="${user.id}">
+        <input type="hidden" name="userId" th:value="${loginUser.id}">
         <input type="hidden" name="depth" th:value="0">
         <div>
             <textarea class="comment" name="content" placeholder="댓글을 작성하세요" rows="2" cols="100" ></textarea>
@@ -50,7 +50,7 @@
                     <!-- 댓글 -->
                     <label>
                         <!-- 삭제 버튼(작성자만 표시) -->
-                        <th:block th:if="${user.id} == ${comment.user.id}">
+                        <th:block th:if="${loginUser.id} == ${comment.user.id}">
                             <form th:action="@{/comment/delete}" method="post">
                                 <input type="hidden" name="id" th:value="${comment.id}">
                                 <input type="hidden" name="boardId" th:value="${board.id}">
@@ -67,7 +67,7 @@
                         <div class="replyForm" style="display: none">
                             <form th:action="@{/comment/create}" method="post">
                                 <input type="hidden" name="boardId" th:value="${board.id}">
-                                <input type="hidden" name="userId" th:value="${user.id}">
+                                <input type="hidden" name="userId" th:value="${loginUser.id}">
                                 <input type="hidden" name="depth" th:value="1">
                                 <input type="hidden" name="parentId" th:value="${comment.id}">
                                 <div>
@@ -82,7 +82,7 @@
                     <!-- 답글 리스트 -->
                     <ul th:each="child : ${comment.children}">
                         <li>
-                            <th:block th:if="${user.id} == ${child.user.id}">
+                            <th:block th:if="${loginUser.id} == ${child.user.id}">
                                 <form th:action="@{/comment/delete}" method="post">
                                     <input type="hidden" name="id" th:value="${child.id}">
                                     <input type="hidden" name="boardId" th:value="${board.id}">
