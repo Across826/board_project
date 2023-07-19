@@ -25,7 +25,7 @@ public class BoardController {
 
     @GetMapping("/create")
     public String create(Model model, @AuthenticationPrincipal CustomUserDetails userDetails) {
-        model.addAttribute("user", userDetails.getUser());
+        model.addAttribute("loginUser", userDetails.getUser());
         return "board/boardCreateForm";
     }
 
@@ -40,7 +40,7 @@ public class BoardController {
         BoardResponse.DetailsDTO boardDTO = boardService.getDetailsById(id);
 
         model.addAttribute("board", boardDTO);
-        model.addAttribute("user", userDetails.getUser());
+        model.addAttribute("loginUser", userDetails.getUser());
         return "board/boardDetails";
     }
 

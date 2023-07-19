@@ -12,7 +12,6 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class CommentRequest {
-
     @Getter
     @Setter
     public static class CreateDTO {
@@ -27,7 +26,7 @@ public class CommentRequest {
         private Long parentId;
 
         @NotEmpty
-        @Length(max=50)
+        @Length(max = 50)
         private String content;
 
         private Board board;
@@ -36,7 +35,7 @@ public class CommentRequest {
 
         private List<Comment> children;
 
-        public Comment toEntity(){
+        public Comment toEntity() {
             return Comment.builder()
                     .board(board)
                     .user(user)

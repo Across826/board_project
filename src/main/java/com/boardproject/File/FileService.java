@@ -21,15 +21,15 @@ public class FileService {
     public static final String PROJECT_ROOT_PATH = System.getProperty("user.dir");
     public static final String DEV_FILES_PATH = "src/main/resources/static/files/";
     public static final String OS_FILES_PATH = DEV_FILES_PATH.replace('/', SEPARATOR_CHAR);
-    public static final String TEMP_SERVER_PATH = PROJECT_ROOT_PATH + SEPARATOR_CHAR + OS_FILES_PATH+"temp";
-    public static final String SAVED_SERVER_PATH = PROJECT_ROOT_PATH + SEPARATOR_CHAR + OS_FILES_PATH+"saved";
+    public static final String TEMP_SERVER_PATH = PROJECT_ROOT_PATH + SEPARATOR_CHAR + OS_FILES_PATH + "temp";
+    public static final String SAVED_SERVER_PATH = PROJECT_ROOT_PATH + SEPARATOR_CHAR + OS_FILES_PATH + "saved";
 
     @Transactional
-    public JsonObject save(MultipartFile file)  {
+    public JsonObject save(MultipartFile file) {
         JsonObject jsonObject = new JsonObject();
 
         // 기존 파일명
-        String originName =file.getOriginalFilename();
+        String originName = file.getOriginalFilename();
 
         // 랜덤 식별자
         UUID uuid = UUID.randomUUID();
@@ -46,43 +46,43 @@ public class FileService {
             FileUtils.copyInputStreamToFile(fileStream, saveFile);
 
             // 응답
-            jsonObject.addProperty("url","/file/load?path=temp&name="+randomFileName);
-            jsonObject.addProperty("originName",originName);
-            jsonObject.addProperty("savedName",randomFileName);
-            jsonObject.addProperty("reponseCode","success");
+            jsonObject.addProperty("url", "/file/load?path=temp&name=" + randomFileName);
+            jsonObject.addProperty("originName", originName);
+            jsonObject.addProperty("savedName", randomFileName);
+            jsonObject.addProperty("reponseCode", "success");
 
             return jsonObject;
-        } catch (IOException|IllegalStateException e) {
-            FileUtils.deleteQuietly(saveFile);	// 실패시 저장된 파일 삭제
+        } catch (IOException | IllegalStateException e) {
+            FileUtils.deleteQuietly(saveFile);    // 실패시 저장된 파일 삭제
             throw new Exception500("서버: 파일 저장 오류!");
         }
     }
 
     @Transactional
-    public FileResponse.loadDTO load(String path,String fileName){
+    public FileResponse.loadDTO load(String path, String fileName) {
         try {
             String reqPath = path.equals("temp") ? TEMP_SERVER_PATH : SAVED_SERVER_PATH;
 
-            Path filePath = Paths.get(reqPath+SEPARATOR_CHAR+fileName);
+            Path filePath = Paths.get(reqPath + SEPARATOR_CHAR + fileName);
 
             String contentType = Files.probeContentType(filePath);
             Resource resource = new InputStreamResource(Files.newInputStream(filePath));
 
-            return new FileResponse.loadDTO(resource,contentType);
+            return new FileResponse.loadDTO(resource, contentType);
         } catch (IOException e) {
             throw new Exception500("서버: 파일 로드 오류!");
         }
     }
 
     @Transactional
-    public void moveFileToSave(){
+    public void moveFileToSave() {
         copy(new File(TEMP_SERVER_PATH), new File(SAVED_SERVER_PATH));
     }
 
     @Transactional
-    public void delete(String fileName){
+    public void delete(String fileName) {
         try {
-            Path path = Paths.get(SAVED_SERVER_PATH+SEPARATOR_CHAR+fileName);
+            Path path = Paths.get(SAVED_SERVER_PATH + SEPARATOR_CHAR + fileName);
 
             Files.delete(path);
         } catch (Exception e) {
@@ -90,17 +90,16 @@ public class FileService {
         }
     }
 
-     private void cleanDirectory(String path) {
-
+    private void cleanDirectory(String path) {
         File folder = new File(path);
         try {
-            if(folder.exists()){
+            if (folder.exists()) {
                 File[] folder_list = folder.listFiles();
 
                 for (int i = 0; i < folder_list.length; i++) {
-                    if(folder_list[i].isFile()) {
+                    if (folder_list[i].isFile()) {
                         folder_list[i].delete();
-                    }else {
+                    } else {
                         cleanDirectory(folder_list[i].getPath());
                     }
                     folder_list[i].delete();
@@ -111,12 +110,12 @@ public class FileService {
         }
     }
 
-    private void copy(File sourceF, File targetF){
+    private void copy(File sourceF, File targetF) {
         File[] target_file = sourceF.listFiles();
 
         for (File file : target_file) {
             File temp = new File(targetF.getAbsolutePath() + SEPARATOR_CHAR + file.getName());
-            if(file.isDirectory()){
+            if (file.isDirectory()) {
                 temp.mkdir();
                 copy(file, temp);
             } else {
@@ -125,15 +124,15 @@ public class FileService {
 
                 try {
                     fis = new FileInputStream(file);
-                    fos = new FileOutputStream(temp) ;
+                    fos = new FileOutputStream(temp);
                     byte[] b = new byte[4096];
                     int cnt = 0;
-                    while((cnt=fis.read(b)) != -1){
+                    while ((cnt = fis.read(b)) != -1) {
                         fos.write(b, 0, cnt);
                     }
                 } catch (Exception e) {
                     throw new Exception500("서버: 파일 저장 오류!");
-                } finally{
+                } finally {
                     try {
                         fis.close();
                         fos.close();
