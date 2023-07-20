@@ -1,6 +1,9 @@
 package com.boardproject.board.dto;
 
 import com.boardproject.board.Board;
+import com.boardproject.user.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
@@ -85,5 +88,26 @@ public class BoardRequest {
         private Long id;
 
         private String content;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @Builder
+    public static class ListDTO {
+        private Long id;
+        private String title;
+        private String content;
+        private String thumbnail;
+        private String writerNickName;
+
+        public static ListDTO toEntity(Board board, User user) {
+            return ListDTO.builder()
+                    .id(board.getId())
+                    .title(board.getTitle())
+                    .content(board.getContent())
+                    .thumbnail(board.getThumbnail())
+                    .writerNickName(user.getNickName())
+                    .build();
+        }
     }
 }
