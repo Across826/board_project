@@ -1,6 +1,7 @@
 package com.boardproject.board;
 
 import com.boardproject.comment.Comment;
+import com.boardproject.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,19 +27,21 @@ public class Board {
 
     @Column(length = 100, nullable = false)
     private String title;
+
     @Column(length = 1000, nullable = false)
     private String content;
 
-    @Column(name = "user_id",nullable = false)
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     private String thumbnail;
 
-    @Column(nullable = false )
+    @Column(nullable = false)
     @ColumnDefault("'GENERAL'")
     private String catagory; // 새싹:GENERAL, 우수:VIP
 
-    @Column(name="hide_flag",nullable = false)
+    @Column(name = "hide_flag", nullable = false)
     @ColumnDefault("0")
     private int isHide; // 0:보임, 1:숨김/삭제
 
@@ -46,21 +49,21 @@ public class Board {
     @OrderBy("createdAt asc")
     private List<Comment> commentList;
 
-    @Column(name="created_at",nullable = false)
+    @Column(name = "created_at", nullable = false)
     @CreationTimestamp
     private Timestamp createdAt;
 
-    @Column(name="updated_at")
+    @Column(name = "updated_at")
     @UpdateTimestamp
     private Timestamp updatedAt;
 
     @Builder
-    public Board(Long id, String title, String content, Long userId, String thumbnail,
+    public Board(Long id, String title, String content, User user, String thumbnail,
                  String catagory, int isHide, Timestamp createdAt, Timestamp updatedAt) {
         this.id = id;
         this.title = title;
         this.content = content;
-        this.userId = userId;
+        this.user = user;
         this.thumbnail = thumbnail;
         this.catagory = catagory;
         this.isHide = isHide;

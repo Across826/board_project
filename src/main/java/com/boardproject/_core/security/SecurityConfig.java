@@ -19,7 +19,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // 1. CSRF 해제
         http.csrf().disable();
-
+        http.headers().frameOptions().disable();
         http.formLogin()
                 .loginProcessingUrl("/login"); // POST /login x-www-form-urlencoded
 
