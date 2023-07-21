@@ -59,10 +59,9 @@ public class BoardController {
         return "redirect:/board/" + update.getId();
     }
 
-    // @Todo 삭제 후 목록 보기로 이동 (목록 보기 url 연결 필요)
     @PostMapping("/delete")
     public String delete(@Valid BoardRequest.DeleteDTO deleteDTO, Errors errors) {
         boardService.delete(deleteDTO);
-        return "redirect:";
+        return "redirect:/board/list";
     }
 }
