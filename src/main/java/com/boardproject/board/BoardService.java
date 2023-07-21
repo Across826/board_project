@@ -8,9 +8,12 @@ import com.boardproject.board.dto.BoardResponse;
 import com.boardproject.user.User;
 import com.boardproject.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,5 +75,23 @@ public class BoardService {
         // 게시글 내 이미지 모두 삭제
         List<String> parsedImgNames = JsoupParser.parseImgName(deleteDTO.getContent());
         parsedImgNames.forEach(fileService::delete);
+    }
+
+    @Transactional
+    public List<Board> findByCategory(String category) {
+        List<Board> boards = boardRepository.findAll();
+
+        return null;
+    }
+
+    @Transactional
+    public Page<Board> findAll(Pageable pageable) {
+        Page<Board> boards = boardRepository.findAll(pageable);
+        return boards;
+    }
+
+    @Transactional
+    public BoardResponse.ListDTO getDetailsByCategory(String category) {
+        return null;
     }
 }

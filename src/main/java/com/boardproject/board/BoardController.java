@@ -4,15 +4,19 @@ import com.boardproject._core.security.CustomUserDetails;
 import com.boardproject._core.utils.JsoupParser;
 import com.boardproject.board.dto.BoardRequest;
 import com.boardproject.board.dto.BoardResponse;
+import com.boardproject.board.type.Category;
+import com.boardproject.user.User;
+import com.boardproject.user.UserResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -62,6 +66,44 @@ public class BoardController {
     @PostMapping("/delete")
     public String delete(@Valid BoardRequest.DeleteDTO deleteDTO, Errors errors) {
         boardService.delete(deleteDTO);
+        return "redirect:/board/list";
+    }
+
+    @GetMapping("/list")
+    public String list(
+            Model model,
+            @PageableDefault(size = 6, sort = "id", direction = Sort.Direction.ASC) Pageable pageable
+    )
+    {
+        Page<Board> list = boardService.findAll(pageable);
+        int nowPage = list.getPageable().getPageNumber() + 1;
+        int startPage = Math.max(nowPage - 4, 1);
+        int endPage = Math.min(nowPage + 5, list.getTotalPages());
+
+        list.map(el -> el).forEach(System.out::println);
+
+        model.addAttribute("boards", list);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        return "board/boardList";
+    }
+
+    @GetMapping("/{category}")
+    public String generalList(
+            Model model,
+            @PageableDefault(size = 6, sort = "id", direction = Sort.Direction.ASC) Pageable pageable,
+            @PathVariable("category") String category
+    )
+    {
+        BoardResponse.ListDTO listDTO = boardService.getDetailsByCategory(category);
+        System.out.println(listDTO);
+//        if (category != "genernal" || category != "vip") {
+//            return "redirect:/board/list";
+//        }
+
+//        model.addAttribute()
+
         return "redirect:/board/list";
     }
 }
