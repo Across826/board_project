@@ -32,27 +32,35 @@ public class BoardService {
         String replaced = createFormDTO.getContent().replaceAll("path=temp", "path=saved");
         createFormDTO.setContent(replaced);
 
-        Board board = createFormDTO.toEntity();
+        // 작성자 설정
+        User userPS = userRepository.findById(createFormDTO.getUserId())
+                .orElseThrow(() -> new Exception404("유저를 찾을 수 없습니다."));
+        createFormDTO.setUser(userPS);
 
+        Board board = createFormDTO.toEntity();
         Board boardPS = boardRepository.save(board);
         return new BoardResponse.CreateDTO(boardPS);
     }
 
     @Transactional
-    public BoardResponse.DetailsDTO getDetailsById(Long boardId){
+    public BoardResponse.DetailsDTO getDetailsById(Long boardId) {
         Optional<Board> boardOP = boardRepository.findById(boardId);
         Board boardPS = boardOP.orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다."));
 
-        Optional<User> userOP = userRepository.findById(boardPS.getUserId());
-        User user = userOP.orElseThrow(() -> new Exception404("유저를 찾을 수 없습니다."));
-
-        return new BoardResponse.DetailsDTO(boardPS,user);
+        return new BoardResponse.DetailsDTO(boardPS);
     }
 
     @Transactional
     public BoardResponse.UpdateDTO update(BoardRequest.UpdateDTO updateDTO) {
         Optional<Board> boardOP = boardRepository.findById(updateDTO.getId());
         Board boardPS = boardOP.orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다."));
+
+        // 사진 저장
+        fileService.moveFileToSave();
+
+        // summernote content 내 파일 경로 temp->saved 로 치환
+        String replaced = updateDTO.getContent().replaceAll("path=temp", "path=saved");
+        updateDTO.setContent(replaced);
 
         updateDTO.setEntity(boardPS);
 
@@ -69,7 +77,13 @@ public class BoardService {
     }
 
     @Transactional
-    public Page<BoardResponse.ListDTO> findAll(Pageable pageable) {
+    public Page<Board> findByCategory() {
         return null;
+    }
+
+    @Transactional
+    public Page<Board> findAll(Pageable pageable) {
+        Page<Board> boards = boardRepository.findAll(pageable);
+        return boards;
     }
 }

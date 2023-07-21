@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -35,7 +34,7 @@ public class CommentService {
         commentRepository.save(comment);
 
         // 대댓글이라면 부모 댓글에 답글로 추가
-        if(createDTO.getDepth()==1){
+        if (createDTO.getDepth() == 1) {
             Comment commentPS = commentRepository.findById(createDTO.getParentId())
                     .orElseThrow(() -> new Exception404("댓글을 찾을 수 없습니다."));
 

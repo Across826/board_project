@@ -4,6 +4,8 @@ import com.boardproject._core.security.CustomUserDetails;
 import com.boardproject._core.utils.JsoupParser;
 import com.boardproject.board.dto.BoardRequest;
 import com.boardproject.board.dto.BoardResponse;
+import com.boardproject.board.type.Category;
+import com.boardproject.user.User;
 import com.boardproject.user.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,10 +16,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -30,7 +29,7 @@ public class BoardController {
 
     @GetMapping("/create")
     public String create(Model model, @AuthenticationPrincipal CustomUserDetails userDetails) {
-        model.addAttribute("user", userDetails.getUser());
+        model.addAttribute("loginUser", userDetails.getUser());
         return "board/boardCreateForm";
     }
 
@@ -45,7 +44,7 @@ public class BoardController {
         BoardResponse.DetailsDTO boardDTO = boardService.getDetailsById(id);
 
         model.addAttribute("board", boardDTO);
-        model.addAttribute("user", userDetails.getUser());
+        model.addAttribute("loginUser", userDetails.getUser());
         return "board/boardDetails";
     }
 
@@ -72,11 +71,38 @@ public class BoardController {
     }
 
     @GetMapping("/list")
-    public String getAllBoardList(
+    public String list(
             Model model,
-            @PageableDefault(size = 6, sort = "id", direction = Sort.Direction.DESC) Pageable pageable)
+            @PageableDefault(size = 6, sort = "id", direction = Sort.Direction.ASC) Pageable pageable
+    )
     {
-        
+        Page<Board> list = boardService.findAll(pageable);
+        int nowPage = list.getPageable().getPageNumber() + 1;
+        int startPage = Math.max(nowPage - 4, 1);
+        int endPage = Math.min(nowPage + 5, list.getTotalPages());
+
+        model.addAttribute("boards", list);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        return "board/boardList";
+    }
+
+    @GetMapping("/general")
+    public String generalList(
+            Model model,
+            @PageableDefault(size = 6, sort = "id", direction = Sort.Direction.ASC) Pageable pageable)
+    {
+
+        return "board/boardList";
+    }
+
+    @GetMapping("/vip")
+    public String vipList(
+            Model model,
+            @PageableDefault(size = 6, sort = "id", direction = Sort.Direction.ASC) Pageable pageable
+    ) {
+
         return "board/boardList";
     }
 }

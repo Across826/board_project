@@ -10,36 +10,33 @@ import lombok.Getter;
 import java.util.List;
 
 public class BoardResponse {
-
     @Getter
-    public static class CreateDTO{
+    public static class CreateDTO {
         private Long id;
-        private Long userId;
+        private User user;
         private String catagory;
         private String title;
 
         public CreateDTO(Board board) {
             this.id = board.getId();
-            this.userId = board.getUserId();
+            this.user = board.getUser();
             this.catagory = board.getCatagory();
             this.title = board.getTitle();
         }
     }
 
     @Getter
-    public static class DetailsDTO{
+    public static class DetailsDTO {
         private Long id;
-        private Long writerId;
-        private String writerNickName;
+        private User user;
         private String title;
         private String content;
         private String thumbnail;
         private List<Comment> commentList;
 
-        public DetailsDTO(Board board, User user) {
+        public DetailsDTO(Board board) {
             this.id = board.getId();
-            this.writerId = user.getId();
-            this.writerNickName = user.getNickName();
+            this.user = board.getUser();
             this.title = board.getTitle();
             this.content = board.getContent();
             this.thumbnail = board.getThumbnail();
@@ -50,13 +47,13 @@ public class BoardResponse {
     @Getter
     public static class UpdateDTO {
         private Long id;
-        private Long userId;
+        private User user;
         private String catagory;
         private String title;
 
         public UpdateDTO(Board board) {
             this.id = board.getId();
-            this.userId = board.getUserId();
+            this.user = board.getUser();
             this.catagory = board.getCatagory();
             this.title = board.getTitle();
         }
