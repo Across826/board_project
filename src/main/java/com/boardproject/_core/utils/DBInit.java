@@ -43,7 +43,7 @@ public class DBInit {
 
             Board boardWithThumbnail = Board.builder()
                     .user(ssar)
-                    .catagory("새싹회원")
+                    .catagory("GENERAL")
                     .title("썸네일 있는 글")
                     .content("<p>썸네일이 있어요! " +
                             "<img src=\"/file/load?path=saved&name=7b5a4af3-26a9-417b-9d78-304d343012b3_0_0.jpg\" style=\"width: 975.733px;\">" +
