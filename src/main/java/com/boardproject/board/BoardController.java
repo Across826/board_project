@@ -81,6 +81,8 @@ public class BoardController {
         int startPage = Math.max(nowPage - 4, 1);
         int endPage = Math.min(nowPage + 5, list.getTotalPages());
 
+        list.map(el -> el).forEach(System.out::println);
+
         model.addAttribute("boards", list);
         model.addAttribute("nowPage", nowPage);
         model.addAttribute("startPage", startPage);
@@ -88,21 +90,21 @@ public class BoardController {
         return "board/boardList";
     }
 
-    @GetMapping("/general")
+    @GetMapping("/{category}")
     public String generalList(
             Model model,
-            @PageableDefault(size = 6, sort = "id", direction = Sort.Direction.ASC) Pageable pageable)
+            @PageableDefault(size = 6, sort = "id", direction = Sort.Direction.ASC) Pageable pageable,
+            @PathVariable("category") String category
+    )
     {
+        BoardResponse.ListDTO listDTO = boardService.getDetailsByCategory(category);
+        System.out.println(listDTO);
+//        if (category != "genernal" || category != "vip") {
+//            return "redirect:/board/list";
+//        }
 
-        return "board/boardList";
-    }
+//        model.addAttribute()
 
-    @GetMapping("/vip")
-    public String vipList(
-            Model model,
-            @PageableDefault(size = 6, sort = "id", direction = Sort.Direction.ASC) Pageable pageable
-    ) {
-
-        return "board/boardList";
+        return "redirect:/board/list";
     }
 }

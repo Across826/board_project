@@ -30,12 +30,12 @@
         </thead>
         <tbody>
             <tr th:each="boards : ${boards}">
-                <th th:text="${boards.id}">번호</th>
-                <th th:text="${null}">사용자 닉네임</th>
-                <th th:text="${boards.title}">제목</th>
-                <th th:text="${boards.content}">내용</th>
-                <th th:text="${boards.thumbnail}">썸내일</th>
-                <th th:text="${boards.createdAt}">썸내일</th>
+                <th th:utext="${boards.id}">번호</th>
+                <th th:utext="${boards.user.nickName}">사용자 닉네임</th>
+                <th th:utext="${boards.title}">제목</th>
+                <th th:utext="${boards.content}">내용</th>
+                <th th:utext="${boards.thumbnail}">썸내일</th>
+                <th th:utext="${boards.createdAt}">등록일</th>
             </tr>
         </tbody>
         <!--굳이 태그로 감쌀 필요 없는 부분을 타임리프 문법으로 사용할 때 사용-->

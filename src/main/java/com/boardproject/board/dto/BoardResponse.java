@@ -65,14 +65,14 @@ public class BoardResponse {
         private String title;
         private String content;
         private String thumbnail;
-        private String writerNickName;
+        private String category;
 
-        public ListDTO(Board board, User user) {
+        public ListDTO(Board board) {
             this.id = board.getId();
             this.title = board.getTitle();
             this.content = board.getContent();
             this.thumbnail = board.getThumbnail();
-            this.writerNickName = user.getNickName();
+            this.category = board.getCatagory();
         }
     }
 }
